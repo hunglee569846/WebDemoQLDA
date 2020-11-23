@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using WebDemoQLDA.IService;
+using WebDemoQLDA.ModelMeta;
 using WebDemoQLDA.Models;
 
 namespace WebDemoQLDA.Controllers
@@ -19,22 +20,24 @@ namespace WebDemoQLDA.Controllers
         public async Task<ActionResult> Index()
         {
             var fac = await _iHttpClient.GetAsync<List<Faculty>>("Faculty/GetAll");
-            return View(fac);
+            ViewBag.Faculty = fac;
+            return View();
         }
+       
 
-        // GET: FacultyController/Details/5
         public async Task<ActionResult> Details(string id)
         {
             string url = "Faculty/" + id.ToString();
             var faculty = await _iHttpClient.GetAsync<Faculty>(url);
-            return View(faculty);
+            ViewBag.facultyDetails = faculty;
+            return View(faculty); 
         }
 
         // GET: FacultyController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: FacultyController/Create
         [HttpPost]
